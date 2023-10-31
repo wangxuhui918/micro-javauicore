@@ -138,7 +138,7 @@ public class HelloController implements BaseController {
 
 fx:controller 指定对应的API接口, onMouseClicked="#hello" 指定hello方法
 
-```xml
+```
 
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -242,7 +242,7 @@ public class MenuController extends com.guoshiyao.framework.ui.core.controller.M
 
 对应的位置加入 "你好" 菜单
 
-```xml
+```
 
 <?xml version="1.0" encoding="UTF-8"?>
 
