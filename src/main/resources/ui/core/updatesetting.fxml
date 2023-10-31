@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guoshiyao.framework.ui.core.controller.UpdateSettingController">
+    <TextArea fx:id="settingtext" layoutX="58.0" layoutY="47.0" prefHeight="712.0" prefWidth="1322.0">
+      <font>
+         <Font size="20.0" />
+      </font></TextArea>
+    <Button fx:id="updatesetting" layoutX="660.0" layoutY="796.0" mnemonicParsing="false" onMouseClicked="#updatesetting" text="保存配置文件" />
+    <TextArea fx:id="settingtextcache" layoutX="302.0" layoutY="772.0" prefHeight="87.0" prefWidth="200.0" />
+    <Button layoutX="797.0" layoutY="796.0" mnemonicParsing="false" onMouseClicked="#change" text="查看样例配置" />
+</Pane>

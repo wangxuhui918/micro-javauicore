@@ -1,0 +1,320 @@
+# 1.📚简介
+
+&emsp;&emsp;***micro-javauicore***是一个轻量级开源基于javafx的JAVA-UI框架,以插件方式提供功能扩展方便二次开发.开发标准,方便管理,节约成本.
+
+## 已经实现的样例
+
+1. 菜单模块
+2. 最小化
+3. 关于模块
+4. 语音阅读
+5. 配置修改
+6. 环境要求,jdk17+idea
+
+
+# 2.📘安装
+
+pom.xml文件引入dependency节点,如下:
+
+```xml
+
+<dependencies>
+    <dependency>
+        <groupId>com.guoshiyao.rely</groupId>
+        <artifactId>micro-javauicore</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+
+```
+
+# 3.使用
+
+增加自定义启动类(需要调用***MainLauncher.main(args)***)/如果直接用该框架进行开发可以直接调用MainLauncher.main方法:
+
+```java
+
+package com.guoshiyao.framework;
+
+import com.guoshiyao.framework.ui.core.starter.MainLauncher;
+
+import java.io.UnsupportedEncodingException;
+
+/**
+ * 主要启动类
+ */
+public class Launcher {
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        MainLauncher.main(args);
+    }
+}
+
+```
+
+# 4.启动
+
+直接运行启动类即可(初次使用会生成java_ui.ini配置文件)
+
+# 5.组件开发说明(创建"你好"测试应用)
+
+## 5.1 测试应用开发
+
+### 5.1.1 创建索引文件(HelloURL.java):
+
+```java
+
+package com.guoshiyao.framework.ui.extend.bean;
+
+import com.guoshiyao.framework.ui.core.url.base.URLInterface;
+
+import java.net.URL;
+
+public class HelloURL implements URLInterface {
+    @Override
+    public URL getFXML() {
+        return null;//前端文件位置
+    }
+
+    @Override
+    public String getMark() {
+        return "你好";//功能说明
+    }
+
+    @Override
+    public Class getController() {
+        return null;//API接口类位置
+    }
+}
+
+
+```
+
+### 5.1.2 创建API接口类(HelloController.java)
+
+创建接口类,并创建弹窗方法 "您好"
+
+```java
+package com.guoshiyao.framework.ui.extend.ui.companynetwork;
+
+import com.guoshiyao.framework.ui.core.controller.base.BaseController;
+import com.guoshiyao.framework.ui.core.controller.utils.AlertUtils;
+
+import java.io.IOException;
+import java.util.Map;
+
+public class HelloController implements BaseController {
+
+    /**
+     * 模态窗父-子数据传送
+     * 也可用于界面初始化
+     *
+     * @param map
+     */
+    @Override
+    public void initData(Map<String, Object> map) {
+
+    }
+
+    /**
+     * 界面初始化
+     *
+     * @throws IOException
+     */
+    public void initialize() throws IOException {
+
+    }
+
+    public void hello() {
+        AlertUtils.info("您好");
+    }
+
+}
+
+
+
+```
+
+### 5.1.3 创建前端文件(resources/**/hello.fxml)
+
+fx:controller 指定对应的API接口, onMouseClicked="#hello" 指定hello方法
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900"
+      prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.guoshiyao.framework.ui.extend.ui.companynetwork.HelloController">
+
+    <Button  layoutX="669.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#hello" text="你好"/>
+
+</Pane>
+
+
+```
+
+### 5.1.3 修改索引文件(HelloURL.java)
+
+```java
+
+public class HelloURL implements URLInterface {
+    @Override
+    public URL getFXML() {
+        return ResourceUtil.getResource("ui/extend/hello.fxml");//前端文件位置
+    }
+
+    @Override
+    public String getMark() {
+        return "你好";//功能说明
+    }
+
+    @Override
+    public Class getController() {
+        return HelloController.class;//API接口类位置
+    }
+}
+
+```
+
+## 5.2 将"您好"应用加入菜单
+
+### 5.2.1 创建索引文件(MenuURL.java):
+
+```java
+
+package com.guoshiyao.framework.ui.extend.bean;
+
+import com.guoshiyao.framework.ui.core.url.base.URLInterface;
+
+import java.net.URL;
+
+public class MenuURL implements URLInterface {
+    @Override
+    public URL getFXML() {
+        return null;//前端文件位置
+    }
+
+    @Override
+    public String getMark() {
+        return "菜单";//功能说明
+    }
+
+    @Override
+    public Class getController() {
+        return null;//API接口类位置
+    }
+}
+
+
+```
+
+### 5.2.2 创建API接口类(MenuController.java)
+
+创建菜单接口类,并加入 "您好" 应用索引方法
+
+```java
+package com.guoshiyao.framework.ui.extend.ui.companynetwork;
+
+import com.guoshiyao.framework.ui.core.url.utils.FXMLBottomUtils;
+import com.guoshiyao.framework.ui.extend.bean.CompanyNetworkURL;
+import com.guoshiyao.framework.ui.extend.bean.HelloURL;
+
+import java.io.IOException;
+
+public class MenuController extends com.guoshiyao.framework.ui.core.controller.MenuController {
+
+
+    public void companynetwork() throws IOException {
+        FXMLBottomUtils.loadFXML(new CompanyNetworkURL(), this.context_pane);
+    }
+
+    public void hello() throws IOException {
+        FXMLBottomUtils.loadFXML(new HelloURL(), this.context_pane);
+    }
+}
+
+
+```
+
+### 5.1.3 创建前端文件(resources/**/menu.fxml)
+
+对应的位置加入 "你好" 菜单
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<Pane fx:id="root_pane" prefHeight="900" prefWidth="1440"
+      xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.guoshiyao.framework.ui.extend.ui.companynetwork.MenuController">
+    <VBox>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="导航">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#companynetwork" text="公司联网小程序"/>
+                        <MenuItem mnemonicParsing="false" onAction="#hello" text="你好"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="帮助">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#updatesetting" text="修改配置"/>
+                        <MenuItem mnemonicParsing="false" onAction="#about" text="关于"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <Pane fx:id="context_pane" prefHeight="900" prefWidth="1440">
+
+        </Pane>
+
+    </VBox>
+</Pane>
+
+
+```
+
+### 5.1.3 修改索引文件(MenuURL.java)
+
+```java
+
+
+public class MenuURL extends com.guoshiyao.framework.ui.core.url.MenuURL {
+    @Override
+    public URL getFXML() {
+        return ResourceUtil.getResource("ui/extend/menu.fxml");
+    }
+
+    @Override
+    public String getMark() {
+        return "菜单";
+    }
+
+    @Override
+    public Class getController() {
+        return MenuController.class;
+    }
+}
+
+```
+
+### 5.1.4 运行结果
+
+![img.png](img.png)
+
+## 5.3 配置文件
+
+### 5.3.1 配置文件生成
+
+1. 如果系统不存在resources/java_ui.ini文件,会通过 resources/tools/java_ui_demo.ini 配置自动生成
+2. 配置对应的读取类为 ***com.guoshiyao.framework.ConfigParams.extend***
+3. 配置分为core,extend两组,core配置赋值在ConfigParams下静态变量,extend赋值在
+   ***com.guoshiyao.framework.ConfigParams.extend***
+ 

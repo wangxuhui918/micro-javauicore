@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<Pane  fx:id="pane"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="900" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guoshiyao.framework.ui.core.controller.SpeakerController">
+    <TextArea fx:id="text" layoutX="58.0" layoutY="47.0" prefHeight="665.0" prefWidth="581.0"/>
+    <Button layoutX="695.0" layoutY="368.0" fx:id="yuedubutton" mnemonicParsing="false" onMouseClicked="#yuedu"
+            text="点击阅读"/>
+    <TextField fx:id="state" layoutX="803.0" layoutY="368.0"/>
+</Pane>
