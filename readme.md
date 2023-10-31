@@ -59,11 +59,11 @@ public class Launcher {
 
 ## 5.1 测试应用开发
 
-### 5.1.1 创建索引文件(HelloURL.java):
+### 5.1.1 创建索引文件(xxx.ui.extend.url.HelloURL.java):
 
 ```java
 
-package com.guoshiyao.framework.ui.extend.bean;
+package com.guoshiyao.framework.ui.extend.url;
 
 import com.guoshiyao.framework.ui.core.url.base.URLInterface;
 
@@ -89,12 +89,12 @@ public class HelloURL implements URLInterface {
 
 ```
 
-### 5.1.2 创建API接口类(HelloController.java)
+### 5.1.2 创建API接口类(xxx.ui.extend.controller.HelloController.java)
 
 创建接口类,并创建弹窗方法 "您好"
 
 ```java
-package com.guoshiyao.framework.ui.extend.ui.companynetwork;
+package com.guoshiyao.framework.ui.extend.ui.extend.controller;
 
 import com.guoshiyao.framework.ui.core.controller.base.BaseController;
 import com.guoshiyao.framework.ui.core.controller.utils.AlertUtils;
@@ -134,7 +134,7 @@ public class HelloController implements BaseController {
 
 ```
 
-### 5.1.3 创建前端文件(resources/**/hello.fxml)
+### 5.1.3 创建前端文件(resources/ui/extend/hello.fxml)
 
 fx:controller 指定对应的API接口, onMouseClicked="#hello" 指定hello方法
 
@@ -146,7 +146,7 @@ fx:controller 指定对应的API接口, onMouseClicked="#hello" 指定hello方�
 <?import javafx.scene.layout.Pane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900"
       prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.guoshiyao.framework.ui.extend.ui.companynetwork.HelloController">
+      fx:controller="com.guoshiyao.framework.ui.extend.controller.HelloController">
 
     <Button  layoutX="669.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#hello" text="你好"/>
 
@@ -155,7 +155,7 @@ fx:controller 指定对应的API接口, onMouseClicked="#hello" 指定hello方�
 
 ```
 
-### 5.1.3 修改索引文件(HelloURL.java)
+### 5.1.3 修改索引文件(xxx.ui.extend.url.HelloURL.java)
 
 ```java
 
@@ -180,11 +180,11 @@ public class HelloURL implements URLInterface {
 
 ## 5.2 将"您好"应用加入菜单
 
-### 5.2.1 创建索引文件(MenuURL.java):
+### 5.2.1 创建索引文件(xxx.ui.extend.url.MenuURL.java):
 
 ```java
 
-package com.guoshiyao.framework.ui.extend.bean;
+package com.guoshiyao.framework.ui.extend.url;
 
 import com.guoshiyao.framework.ui.core.url.base.URLInterface;
 
@@ -210,12 +210,12 @@ public class MenuURL implements URLInterface {
 
 ```
 
-### 5.2.2 创建API接口类(MenuController.java)
+### 5.2.2 创建API接口类(xxx.ui.extend.controller.MenuController.java)
 
 创建菜单接口类,并加入 "您好" 应用索引方法
 
 ```java
-package com.guoshiyao.framework.ui.extend.ui.companynetwork;
+package com.guoshiyao.framework.ui.extend.controller;
 
 import com.guoshiyao.framework.ui.core.url.utils.FXMLBottomUtils;
 import com.guoshiyao.framework.ui.extend.bean.CompanyNetworkURL;
@@ -238,7 +238,7 @@ public class MenuController extends com.guoshiyao.framework.ui.core.controller.M
 
 ```
 
-### 5.1.3 创建前端文件(resources/**/menu.fxml)
+### 5.1.3 创建前端文件(resources/ui/extend/menu.fxml)
 
 对应的位置加入 "你好" 菜单
 
@@ -252,7 +252,7 @@ public class MenuController extends com.guoshiyao.framework.ui.core.controller.M
 <Pane fx:id="root_pane" prefHeight="900" prefWidth="1440"
       xmlns="http://javafx.com/javafx/17.0.2-ea"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.guoshiyao.framework.ui.extend.ui.companynetwork.MenuController">
+      fx:controller="com.guoshiyao.framework.ui.extend.controller.MenuController">
     <VBox>
         <MenuBar>
             <menus>
@@ -281,12 +281,12 @@ public class MenuController extends com.guoshiyao.framework.ui.core.controller.M
 
 ```
 
-### 5.1.3 修改索引文件(MenuURL.java)
+### 5.1.3 修改索引文件(xxx.ui.extend.url.MenuURL.java)
 
 ```java
 
 
-public class MenuURL extends com.guoshiyao.framework.ui.core.url.MenuURL {
+public class MenuURL extends com.guoshiyao.framework.ui.extend.url.MenuURL {
     @Override
     public URL getFXML() {
         return ResourceUtil.getResource("ui/extend/menu.fxml");
