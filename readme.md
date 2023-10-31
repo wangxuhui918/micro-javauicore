@@ -22,7 +22,7 @@ pom.xml文件引入dependency节点,如下:
     <dependency>
         <groupId>com.guoshiyao.rely</groupId>
         <artifactId>micro-javauicore</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1-RELEASE</version>
     </dependency>
 </dependencies>
 
