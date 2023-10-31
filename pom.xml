@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.guoshiyao.rely</groupId>
@@ -111,6 +113,40 @@
             <version>1.18</version>
         </dependency>
     </dependencies>
+
+
+    <issueManagement>
+        <system>System Issue</system>
+        <url>https://guoshiyao.com/home/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>Mulan Permissive Software License，Version 1</name>
+            <url>http://license.coscl.org.cn/MulanPSL</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>wangxuhui918</name>
+            <email>wangxuhui918@163.com</email>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Release Repository</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
 
     <build>
         <plugins>
