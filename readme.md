@@ -317,4 +317,153 @@ public class MenuURL extends com.guoshiyao.framework.ui.core.url.MenuURL {
 2. 配置对应的读取类为 ***com.guoshiyao.framework.ConfigParams.extend***
 3. 配置分为core,extend两组,core配置赋值在ConfigParams下静态变量,extend赋值在
    ***com.guoshiyao.framework.ConfigParams.extend***
- 
+
+## 5.4 打包
+
+### 5.4.1 全量包
+
+pom.xml文件中加入如下插件,如果需要压缩以及操作文件则放开`dist`限制并在项目根目录下加入assembly.xml文件,打包命令为`mvn clean packge`
+
+1. pom.xml
+```xml
+
+   <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <fork>true</fork>
+                    <verbose>true</verbose>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerVersion>17</compilerVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-4</version>
+                <executions>
+                    <execution>
+                        <id>jar-with-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>公司联网小程序</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.guoshiyao.framework.Launcher
+                                    </mainClass>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                    <!--                    <execution>-->
+                    <!--                        <id>dist</id>-->
+                    <!--                        <phase>package</phase>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>single</goal>-->
+                    <!--                        </goals>-->
+                    <!--                        <configuration>-->
+                    <!--                            <descriptors>-->
+                    <!--                                &lt;!&ndash; 配置 assembly 的路径,正常放在项目根目录 &ndash;&gt;-->
+                    <!--                                <descriptor>assembly.xml</descriptor>-->
+                    <!--                            </descriptors>-->
+                    <!--                        </configuration>-->
+                    <!--                    </execution>-->
+                </executions>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <executions>
+                    <execution>
+                        <!-- Default configuration for running with: mvn clean javafx:run -->
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>com.guoshiyao.framework.Launcher</mainClass>
+                            <launcher>app</launcher>
+                            <jlinkZipName>app</jlinkZipName>
+                            <jlinkImageName>app</jlinkImageName>
+                            <noManPages>true</noManPages>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+```
+2. assembly.xml
+
+```xml
+
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+
+    <!--    <dependencySets>-->
+    <!--        <dependencySet>-->
+    <!--            &lt;!&ndash;不使用项目的artifact，第三方jar不要解压，打包进zip文件的lib目录&ndash;&gt;-->
+    <!--            <useProjectArtifact>false</useProjectArtifact>-->
+    <!--            <outputDirectory>lib</outputDirectory>-->
+    <!--            <unpack>false</unpack>-->
+    <!--        </dependencySet>-->
+    <!--    </dependencySets>-->
+
+    <fileSets>
+        <!--        <fileSet>-->
+        <!--            <directory>C:\Program Files\Java\jdk-17.0.2</directory>-->
+        <!--            <outputDirectory>jdk</outputDirectory>-->
+        <!--            <includes>-->
+        <!--                <include>*/*.**</include>-->
+        <!--            </includes>-->
+        <!--        </fileSet>-->
+
+        <!-- 把项目脚本文件，打包进zip文件的根目录 -->
+        <!--        <fileSet>-->
+        <!--            <directory>${project.basedir}/target/classes</directory>-->
+        <!--            <outputDirectory>jdk/bin</outputDirectory>-->
+        <!--            <includes>-->
+        <!--                <include>db_config_file.json</include>-->
+        <!--            </includes>-->
+        <!--        </fileSet>-->
+
+
+        <!--        <fileSet>-->
+        <!--            <directory>${project.basedir}/target/classes</directory>-->
+        <!--            <outputDirectory>jdk/bin</outputDirectory>-->
+        <!--            <includes>-->
+        <!--                <include>启动.bat</include>-->
+        <!--            </includes>-->
+        <!--        </fileSet>-->
+
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>bin</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+</assembly>
+```
