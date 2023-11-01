@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 
 import java.util.Map;
 
@@ -24,7 +25,8 @@ public class SpeakerController implements BaseController {
     Button yuedubutton;
     @FXML
     Pane pane;
-
+    @FXML
+    WebView web;
 
     public void yuedu(MouseEvent evnt) {//tempgitproejcttable
 
@@ -53,6 +55,9 @@ public class SpeakerController implements BaseController {
 
     @Override
     public void initData(Map<String, Object> data) {
+
+
     }
+
 
 }

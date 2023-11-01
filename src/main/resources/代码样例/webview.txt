@@ -1,0 +1,16 @@
+//        WebView webView = new WebView();
+//        web.getEngine().load("http://www.baidu.com");
+//        web.getEngine().getDocument().getElementById("kw").setTextContent("1233");
+//        web.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+//        @Override
+//            public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
+//                url.setText(web.getEngine().getLocation());
+
+//                if (newValue == Worker.State.SUCCEEDED) {
+//                    Document doc = web.getEngine().getDocument();
+//                    doc.getElementById("kw").setAttribute("text", "1233");
+//                    String html = (String) web.getEngine().executeScript("document.documentElement.outerHTML");
+//                    System.out.println(html);
+//                }
+//            }
+//        });
