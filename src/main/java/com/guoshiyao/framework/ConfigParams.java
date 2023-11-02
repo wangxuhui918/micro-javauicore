@@ -77,7 +77,7 @@ public class ConfigParams {
     //配置文件
     public final static String config_file = "java_ui.ini";
     //配置文件样例
-    public final static String resource_demo_config_file = "tools" + File.separator + "java_ui_demo.ini";
+    public final static String resource_demo_config_file = "tools/java_ui_demo.ini";
 
     static {
         String runtimeDir = "";

@@ -140,11 +140,11 @@
     </developers>
 
     <distributionManagement>
-<!--        <snapshotRepository>-->
-<!--            <id>sonatype-nexus-snapshots</id>-->
-<!--            <name>Sonatype Nexus Snapshots</name>-->
-<!--            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>-->
-<!--        </snapshotRepository>-->
+        <!--        <snapshotRepository>-->
+        <!--            <id>sonatype-nexus-snapshots</id>-->
+        <!--            <name>Sonatype Nexus Snapshots</name>-->
+        <!--            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>-->
+        <!--        </snapshotRepository>-->
         <repository>
             <id>sonatype-nexus-staging</id>
             <name>Nexus Release Repository</name>
@@ -154,6 +154,14 @@
 
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>java_ui.ini</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -165,7 +173,42 @@
                     <source>17</source>
                     <target>17</target>
                     <compilerVersion>17</compilerVersion>
+
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- source包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
