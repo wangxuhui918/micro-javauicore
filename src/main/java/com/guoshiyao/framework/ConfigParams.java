@@ -67,13 +67,13 @@ public class ConfigParams {
     //程序图标
     public static final String iocn_path = "images/iocn.png";
     //程序窗口宽高
-    public static final double bottom_height = 900;
+    public static double bottom_height = 900;
     //程序窗口宽度
-    public static final double bottom_width = 1440;
+    public static double bottom_width = 1440;
     //程序popup窗口宽高
-    public static final double popup_height = bottom_height / 2;
+    public static double popup_height = bottom_height / 2;
     //程序popup窗口宽度
-    public static final double popup_width = bottom_width / 2;
+    public static double popup_width = bottom_width / 2;
     //配置文件
     public final static String config_file = "java_ui.ini";
     //配置文件样例
@@ -155,6 +155,10 @@ public class ConfigParams {
             copyright = config_pathseeting.get("core", "javaui.copyright");
             useme = config_pathseeting.get("core", "javaui.useme");
             usemeurl = config_pathseeting.get("core", "javaui.usemeurl");
+            bottom_height = config_pathseeting.getDouble("javaui.bottom_height", "core", bottom_height);
+            bottom_width = config_pathseeting.getDouble("javaui.bottom_width", "core", bottom_width);
+            popup_height = config_pathseeting.getDouble("javaui.popup_height", "core", popup_height);
+            popup_width = config_pathseeting.getDouble("javaui.bottom_height", "core", popup_width);
             extend = config_pathseeting.getSetting("extend");
         } catch (Exception e) {
             e.printStackTrace();
