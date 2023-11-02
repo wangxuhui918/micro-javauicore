@@ -117,14 +117,14 @@ public class ConfigParams {
                 Setting resource_demo_config_file_setting = new Setting(ResourceUtil.getResource(resource_demo_config_file), Charset.forName("UTF-8"), true);
                 for (String key : resource_demo_config_file_setting.getSetting("core").keySet()) {
                     if (config_pathseeting.getSetting("core") == null || !config_pathseeting.getSetting("core").containsKey(key)) {
-                        config_pathseeting.getSetting("core").put(key, resource_demo_config_file_setting.getSetting("core").get(key));
+                        config_pathseeting.putByGroup(key, "core", resource_demo_config_file_setting.getSetting("core").get(key));
                         LogUtils.debug("更新配置文件:{}-core-{}", config_file_full_path_temp, key);
                         s++;
                     }
                 }
                 for (String key : resource_demo_config_file_setting.getSetting("extend").keySet()) {
                     if (config_pathseeting.getSetting("extend") == null || !config_pathseeting.getSetting("extend").containsKey(key)) {
-                        config_pathseeting.getSetting("extend").put(key, resource_demo_config_file_setting.getSetting("extend").get(key));
+                        config_pathseeting.putByGroup(key, "extend", resource_demo_config_file_setting.getSetting("extend").get(key));
                         LogUtils.debug("更新配置文件:{}-extend-{}", config_file_full_path_temp, key);
                         s++;
                     }
