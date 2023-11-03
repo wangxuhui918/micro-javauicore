@@ -14,6 +14,7 @@
 ## 计划实现
 
 1. 增加菜单部分Ui的单独遮罩+配合其他pane的遮罩
+2. 增加配置项,可以直接锁定菜单无法点击,仅可以在启动界面进行操作
 
 
 # 2.📘安装
@@ -24,7 +25,7 @@ pom.xml文件引入dependency节点,如下:
 
 <dependencies>
     <dependency>
-        <groupId>com.guoshiyao.rely</groupId>
+        <groupId>cn.bigcore</groupId>
         <artifactId>micro-javauicore</artifactId>
         <version>1.2-SNAPSHOT</version>
     </dependency>
@@ -38,9 +39,9 @@ pom.xml文件引入dependency节点,如下:
 
 ```java
 
-package com.guoshiyao.framework;
+package cn.bigcore.framework;
 
-import com.guoshiyao.framework.ui.core.starter.MainLauncher;
+import starter.core.ui.cn.bigcore.framework.MainLauncher;
 
 import java.io.UnsupportedEncodingException;
 
@@ -67,9 +68,9 @@ public class Launcher {
 
 ```java
 
-package com.guoshiyao.framework.ui.extend.url;
+package cn.bigcore.framework.ui.extend.url;
 
-import com.guoshiyao.framework.ui.core.url.base.URLInterface;
+import base.url.core.ui.cn.bigcore.framework.URLInterface;
 
 import java.net.URL;
 
@@ -98,10 +99,10 @@ public class HelloURL implements URLInterface {
 创建接口类,并创建弹窗方法 "您好"
 
 ```java
-package com.guoshiyao.framework.ui.extend.ui.extend.controller;
+package cn.bigcore.framework.ui.extend.ui.extend.controller;
 
-import com.guoshiyao.framework.ui.core.controller.base.BaseController;
-import com.guoshiyao.framework.ui.core.controller.utils.AlertUtils;
+import base.controller.core.ui.cn.bigcore.framework.BaseController;
+import utils.controller.core.ui.cn.bigcore.framework.AlertUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -150,7 +151,7 @@ fx:controller 指定对应的API接口, onMouseClicked="#hello" 指定hello方�
 <?import javafx.scene.layout.Pane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900"
       prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.guoshiyao.framework.ui.extend.controller.HelloController">
+      fx:controller="cn.bigcore.framework.ui.extend.controller.HelloController">
 
     <Button  layoutX="669.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#hello" text="你好"/>
 
@@ -188,9 +189,9 @@ public class HelloURL implements URLInterface {
 
 ```java
 
-package com.guoshiyao.framework.ui.extend.url;
+package cn.bigcore.framework.ui.extend.url;
 
-import com.guoshiyao.framework.ui.core.url.base.URLInterface;
+import base.url.core.ui.cn.bigcore.framework.URLInterface;
 
 import java.net.URL;
 
@@ -219,15 +220,15 @@ public class MenuURL implements URLInterface {
 创建菜单接口类,并加入 "您好" 应用索引方法
 
 ```java
-package com.guoshiyao.framework.ui.extend.controller;
+package cn.bigcore.framework.ui.extend.controller;
 
-import com.guoshiyao.framework.ui.core.url.utils.FXMLBottomUtils;
-import com.guoshiyao.framework.ui.extend.bean.CompanyNetworkURL;
-import com.guoshiyao.framework.ui.extend.bean.HelloURL;
+import utils.url.core.ui.cn.bigcore.framework.FXMLBottomUtils;
+import cn.bigcore.framework.ui.extend.bean.CompanyNetworkURL;
+import cn.bigcore.framework.ui.extend.bean.HelloURL;
 
 import java.io.IOException;
 
-public class MenuController extends com.guoshiyao.framework.ui.core.controller.MenuController {
+public class MenuController extends controller.core.ui.cn.bigcore.framework.MenuController {
 
 
     public void companynetwork() throws IOException {
@@ -256,7 +257,7 @@ public class MenuController extends com.guoshiyao.framework.ui.core.controller.M
 <Pane fx:id="root_pane" prefHeight="900" prefWidth="1440"
       xmlns="http://javafx.com/javafx/17.0.2-ea"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.guoshiyao.framework.ui.extend.controller.MenuController">
+      fx:controller="cn.bigcore.framework.ui.extend.controller.MenuController">
     <VBox>
         <MenuBar>
             <menus>
@@ -290,7 +291,7 @@ public class MenuController extends com.guoshiyao.framework.ui.core.controller.M
 ```java
 
 
-public class MenuURL extends com.guoshiyao.framework.ui.extend.url.MenuURL {
+public class MenuURL extends cn.bigcore.framework.ui.extend.url.MenuURL {
     @Override
     public URL getFXML() {
         return ResourceUtil.getResource("ui/extend/menu.fxml");
@@ -318,9 +319,9 @@ public class MenuURL extends com.guoshiyao.framework.ui.extend.url.MenuURL {
 ### 5.3.1 配置文件生成
 
 1. 如果系统不存在resources/java_ui.ini文件,会通过 resources/tools/java_ui_demo.ini 配置自动生成
-2. 配置对应的读取类为 ***com.guoshiyao.framework.ConfigParams.extend***
+2. 配置对应的读取类为 ***cn.bigcore.framework.ConfigParams.extend***
 3. 配置分为core,extend两组,core配置赋值在ConfigParams下静态变量,extend赋值在
-   ***com.guoshiyao.framework.ConfigParams.extend***
+   ***cn.bigcore.framework.ConfigParams.extend***
 
 ## 5.4 打包
 
@@ -364,7 +365,7 @@ pom.xml文件中加入如下插件,如果需要压缩以及操作文件则放开
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.guoshiyao.framework.Launcher
+                                    <mainClass>cn.bigcore.framework.Launcher
                                     </mainClass>
                                     <addClasspath>true</addClasspath>
                                 </manifest>
@@ -397,7 +398,7 @@ pom.xml文件中加入如下插件,如果需要压缩以及操作文件则放开
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.guoshiyao.framework.Launcher</mainClass>
+                            <mainClass>cn.bigcore.framework.Launcher</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

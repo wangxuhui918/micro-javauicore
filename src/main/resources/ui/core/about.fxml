@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450"
       prefWidth="720" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.guoshiyao.framework.ui.core.controller.AboutController">
+      fx:controller="cn.bigcore.framework.ui.core.controller.AboutController">
     <ImageView fx:id="iocn" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="23.0"/>
     <Label fx:id="product" alignment="TOP_LEFT" layoutX="258.0" layoutY="20.0" prefHeight="32.0" prefWidth="436.0"
            text="XXXXX项目/框架">

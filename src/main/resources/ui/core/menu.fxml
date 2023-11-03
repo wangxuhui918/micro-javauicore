@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <Pane fx:id="root_pane" prefHeight="900" prefWidth="1440"
       xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guoshiyao.framework.ui.core.controller.MenuController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.bigcore.framework.ui.core.controller.MenuController">
     <VBox>
 
         <!--    <padding>-->
