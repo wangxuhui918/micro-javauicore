@@ -158,7 +158,7 @@ public class ConfigParams {
             bottom_height = config_pathseeting.getDouble("javaui.bottom_height", "core", bottom_height);
             bottom_width = config_pathseeting.getDouble("javaui.bottom_width", "core", bottom_width);
             popup_height = config_pathseeting.getDouble("javaui.popup_height", "core", popup_height);
-            popup_width = config_pathseeting.getDouble("javaui.bottom_height", "core", popup_width);
+            popup_width = config_pathseeting.getDouble("javaui.popup_width", "core", popup_width);
             extend = config_pathseeting.getSetting("extend");
         } catch (Exception e) {
             e.printStackTrace();
