@@ -1,7 +1,7 @@
 package cn.bigcore.framework;
 
-import cn.bigcore.framework.ui.core.controller.utils.AlertUtils;
 import cn.bigcore.framework.ui.core.starter.Starter;
+import cn.bigcore.framework.ui.core.url.MenuURL;
 import cn.bigcore.framework.ui.core.url.SpeakerURL;
 import cn.bigcore.framework.ui.core.url.base.URLInterface;
 import cn.bigcore.framework.utils.log.LogUtils;
@@ -13,8 +13,8 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.setting.Setting;
 import cn.hutool.system.SystemUtil;
-import cn.bigcore.framework.ui.core.url.MenuURL;
 
+import java.awt.*;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Date;
@@ -59,7 +59,6 @@ public class ConfigParams {
     public static String usemeurl = "http://license.coscl.org.cn/MulanPSL2";
     //配置文件
     public static String config_file_full_path = "";
-    //
     //运行环境
     public static final String runtime = "运行环境： " + SystemUtil.getJavaRuntimeInfo().getName() + " " + SystemUtil.getJavaRuntimeInfo().getVersion();
     //系统环境
@@ -70,80 +69,88 @@ public class ConfigParams {
     public static double bottom_height = 900;
     //程序窗口宽度
     public static double bottom_width = 1440;
+    //当前分辨率
+    public static double h_x = 900;
+    //当前分辨率
+    public static double w_x = 1440;
     //程序popup窗口宽高
     public static double popup_height = bottom_height / 2;
     //程序popup窗口宽度
     public static double popup_width = bottom_width / 2;
-    //配置文件
-    public final static String config_file = "java_ui.ini";
-    //配置文件样例
-    public final static String resource_demo_config_file = "tools/java_ui_demo.ini";
+    //是否自适应页面
+    public static boolean sizeauto = false;
+    //开发标准窗口高
+    public static double w_bs = 1;
+    //开发标准窗口宽
+    public static double h_bs = 1;
 
     static {
-        String runtimeDir = "";
-        try {
-            String startCommad = System.getProperty("sun.java.command");
-            LogUtils.debug("获取到启动命令值:[{}]", startCommad);
-            if (StrUtil.isNotBlank(startCommad)) {
-                startCommad = StrUtil.subBefore(startCommad, " ", false);
-            }
+        //配置文件名
+        String config_file = "java_ui.ini";
+        //配置文件样例
+        String resource_demo_config_file = "tools/java_ui_demo.ini";
+        try {//获取启动目录
+            String startCommad = StrUtil.subBefore(System.getProperty("sun.java.command"), " ", false);
             if (URLUtil.isJarFileURL(new File(startCommad).toURI().toURL())) {//如果是运行时
-                LogUtils.debug("[jar]运行模式");
-                runtimeDir = FileUtil.getParent(startCommad, 1);
+                config_file_full_path = FileUtil.getParent(startCommad, 1) + File.separator + config_file;
             } else if (ClassUtil.isNormalClass(ClassUtil.loadClass(startCommad, false))) {//如果是非运行时
                 String f1 = FileUtil.getAbsolutePath(ClassUtil.loadClass(Starter.class.getName()).getClassLoader().getResource("").getPath());
                 for (int i = 0; ; i++) {
-                    String classes = FileUtil.getParent(f1, i);
-                    String target = FileUtil.getParent(f1, i + 1);
-                    String root = FileUtil.getParent(f1, i + 2);
-                    if (StrUtil.endWith(classes, "classes") && StrUtil.endWith(target, "target")) {
-                        runtimeDir = root + FileUtil.FILE_SEPARATOR + "src" + FileUtil.FILE_SEPARATOR + "main" + FileUtil.FILE_SEPARATOR + "resources" + FileUtil.FILE_SEPARATOR;
+                    if (StrUtil.endWith(FileUtil.getParent(f1, i), "classes") && StrUtil.endWith(FileUtil.getParent(f1, i + 1), "target")) {
+                        config_file_full_path = FileUtil.getParent(f1, i + 2) + FileUtil.FILE_SEPARATOR
+                                + "src" + FileUtil.FILE_SEPARATOR //
+                                + "main" + FileUtil.FILE_SEPARATOR //
+                                + "resources" + FileUtil.FILE_SEPARATOR//
+                                + config_file;//
+
                         break;
                     }
                 }
             }
-
-            try {
-                String config_file_full_path_temp = runtimeDir + File.separator + config_file;
-                if (!new File(config_file_full_path_temp).exists()) {
-                    LogUtils.debug("配置文件不存在:{},新建", config_file_full_path_temp);
-                    FileUtil.writeUtf8String(ResourceUtil.readUtf8Str(resource_demo_config_file), config_file_full_path_temp);
-                }
-                LogUtils.debug("开始读取配置文件:{}", config_file_full_path_temp);
-                Setting config_pathseeting = new Setting(config_file_full_path_temp);
-                //
-                int s = 0;
-                LogUtils.debug("更新配置文件:{}", config_file_full_path_temp);
-                Setting resource_demo_config_file_setting = new Setting(ResourceUtil.getResource(resource_demo_config_file), Charset.forName("UTF-8"), true);
-                for (String key : resource_demo_config_file_setting.getSetting("core").keySet()) {
-                    if (config_pathseeting.getSetting("core") == null || !config_pathseeting.getSetting("core").containsKey(key)) {
-                        config_pathseeting.putByGroup(key, "core", resource_demo_config_file_setting.getSetting("core").get(key));
-                        LogUtils.debug("更新配置文件:{}-core-{}", config_file_full_path_temp, key);
-                        s++;
-                    }
-                }
-                for (String key : resource_demo_config_file_setting.getSetting("extend").keySet()) {
-                    if (config_pathseeting.getSetting("extend") == null || !config_pathseeting.getSetting("extend").containsKey(key)) {
-                        config_pathseeting.putByGroup(key, "extend", resource_demo_config_file_setting.getSetting("extend").get(key));
-                        LogUtils.debug("更新配置文件:{}-extend-{}", config_file_full_path_temp, key);
-                        s++;
-                    }
-                }
-                if (s > 0) {
-                    config_pathseeting.store();
-                }
-            } catch (Exception e) {
-            }
-
         } catch (Exception e) {
-            AlertUtils.err("配置文件读取失败", e);
+            throw new RuntimeException(e.toString());
         }
         try {
-            config_file_full_path = runtimeDir + File.separator + config_file;
+            if (!new File(config_file_full_path).exists()) {
+                LogUtils.debug("配置文件不存在:{},新建", config_file_full_path);
+                FileUtil.writeUtf8String(ResourceUtil.readUtf8Str(resource_demo_config_file), config_file_full_path);
+            }
+            LogUtils.debug("开始读取配置文件:{}", config_file_full_path);
             Setting config_pathseeting = new Setting(config_file_full_path);
+            //
+            int s = 0;
+            LogUtils.debug("更新配置文件:{}", config_file_full_path);
+            Setting resource_demo_config_file_setting = new Setting(ResourceUtil.getResource(resource_demo_config_file), Charset.forName("UTF-8"), true);
+            for (String key : resource_demo_config_file_setting.getSetting("core").keySet()) {
+                if (config_pathseeting.getSetting("core") == null || !config_pathseeting.getSetting("core").containsKey(key)) {
+                    config_pathseeting.putByGroup(key, "core", resource_demo_config_file_setting.getSetting("core").get(key));
+                    LogUtils.debug("更新配置文件:{}-core-{}", config_file_full_path, key);
+                    s++;
+                }
+            }
+            for (String key : resource_demo_config_file_setting.getSetting("extend").keySet()) {
+                if (config_pathseeting.getSetting("extend") == null || !config_pathseeting.getSetting("extend").containsKey(key)) {
+                    config_pathseeting.putByGroup(key, "extend", resource_demo_config_file_setting.getSetting("extend").get(key));
+                    LogUtils.debug("更新配置文件:{}-extend-{}", config_file_full_path, key);
+                    s++;
+                }
+            }
+            if (s > 0) {
+                config_pathseeting.store();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.toString());
+        }
+        Setting config_pathseeting = new Setting(config_file_full_path);
+        try {
             allowminwindow = config_pathseeting.getBool("javaui.allowminwindow", "core");
             home_ui = (URLInterface) ClassUtil.loadClass(config_pathseeting.get("core", "javaui.home_ui")).newInstance();
-            menu_home_ui = (URLInterface) ClassUtil.loadClass(config_pathseeting.get("core", "javaui.menu_home_ui")).newInstance();
+            try {
+                menu_home_ui = (URLInterface) ClassUtil.loadClass(config_pathseeting.get("core", "javaui.menu_home_ui")).newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+                menu_home_ui = null;
+            }
             project_name = config_pathseeting.get("core", "javaui.project_name");
             log_level = Level.parse(config_pathseeting.get("core", "javaui.log_level"));
             author = config_pathseeting.get("core", "javaui.author");
@@ -155,10 +162,21 @@ public class ConfigParams {
             copyright = config_pathseeting.get("core", "javaui.copyright");
             useme = config_pathseeting.get("core", "javaui.useme");
             usemeurl = config_pathseeting.get("core", "javaui.usemeurl");
-            bottom_height = config_pathseeting.getDouble("javaui.bottom_height", "core", bottom_height);
-            bottom_width = config_pathseeting.getDouble("javaui.bottom_width", "core", bottom_width);
-            popup_height = config_pathseeting.getDouble("javaui.popup_height", "core", popup_height);
-            popup_width = config_pathseeting.getDouble("javaui.popup_width", "core", popup_width);
+            sizeauto = config_pathseeting.getBool("javaui.sizeauto", "core", sizeauto);
+            h_x = config_pathseeting.getDouble("javaui.h_x", "core", h_x);
+            w_x = config_pathseeting.getDouble("javaui.w_x", "core", w_x);
+            if (sizeauto) {//自适应大小默认为分辨率的一般,弹窗为分辨率1/3
+                Toolkit tk = Toolkit.getDefaultToolkit();
+                Dimension screenSize = tk.getScreenSize();
+                h_x = screenSize.getHeight();
+                w_x = screenSize.getWidth();
+                h_bs = (1 + (((h_x / bottom_height) - 1) / 1.2));
+                w_bs = (1 + (((w_x / bottom_width) - 1) / 1.2));
+                if (w_bs < 1 || h_bs < 1) {
+                    LogUtils.err("分辨率过低,标准分辨率:" + ConfigParams.bottom_height + "X" + ConfigParams.bottom_width);
+                    System.exit(-1);
+                }
+            }
             extend = config_pathseeting.getSetting("extend");
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,13 +1,13 @@
 package cn.bigcore.framework.ui.core.controller;
 
 
-import cn.hutool.core.io.FileUtil;
 import cn.bigcore.framework.ConfigParams;
 import cn.bigcore.framework.ui.core.controller.base.BaseController;
 import cn.bigcore.framework.ui.core.controller.utils.AlertUtils;
 import cn.bigcore.framework.ui.core.controller.utils.LoadingUtils;
 import cn.bigcore.framework.utils.thread.ThreadInterface;
 import cn.bigcore.framework.utils.thread.ThreadUtils;
+import cn.hutool.core.io.FileUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -56,7 +56,7 @@ public class UpdateSettingController implements BaseController {
             public void body() {
                 if (!updatesetting.isDisable()) {
                     settingtextcache.setText(settingtext.getText());
-                    settingtext.setText(FileUtil.readUtf8String(ConfigParams.resource_demo_config_file));
+                    settingtext.setText(FileUtil.readUtf8String("tools/java_ui_demo.ini"));
                     settingtext.setEditable(false);
                     updatesetting.setDisable(true);
                 } else {
