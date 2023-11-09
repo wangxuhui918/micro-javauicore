@@ -170,8 +170,8 @@ public class ConfigParams {
                 Dimension screenSize = tk.getScreenSize();
                 h_x = screenSize.getHeight();
                 w_x = screenSize.getWidth();
-                h_bs = (1 + (((h_x / bottom_height) - 1) / 1.2));
-                w_bs = (1 + (((w_x / bottom_width) - 1) / 1.2));
+                h_bs = (1 + (((h_x / bottom_height) - 1) * 0.5));
+                w_bs = (1 + (((w_x / bottom_width) - 1) * 0.5));
                 if (w_bs < 1 || h_bs < 1) {
                     LogUtils.err("分辨率过低,标准分辨率:" + ConfigParams.bottom_height + "X" + ConfigParams.bottom_width);
                     System.exit(-1);
