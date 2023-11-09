@@ -3,7 +3,7 @@
 
     <groupId>cn.bigcore</groupId>
     <artifactId>micro-javauicore</artifactId>
-    <version>1.4-RELEASE</version>
+    <version>1.5-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
