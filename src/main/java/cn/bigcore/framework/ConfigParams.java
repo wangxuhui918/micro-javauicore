@@ -14,7 +14,6 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.setting.Setting;
 import cn.hutool.system.SystemUtil;
 
-import java.awt.*;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Date;
@@ -65,24 +64,12 @@ public class ConfigParams {
     public static final String systemos = "系统环境： " + SystemUtil.getOsInfo().getName() + " " + SystemUtil.getOsInfo().getVersion() + " " + SystemUtil.getOsInfo().getArch();
     //程序图标
     public static final String iocn_path = "images/iocn.png";
-    //程序窗口宽高
-    public static double bottom_height = 900;
-    //程序窗口宽度
-    public static double bottom_width = 1440;
-    //当前分辨率
-    public static double h_x = 900;
-    //当前分辨率
-    public static double w_x = 1440;
-    //程序popup窗口宽高
-    public static double popup_height = bottom_height / 2;
-    //程序popup窗口宽度
-    public static double popup_width = bottom_width / 2;
     //是否自适应页面
     public static boolean sizeauto = false;
-    //开发标准窗口高
-    public static double w_bs = 1;
-    //开发标准窗口宽
-    public static double h_bs = 1;
+    //当前指定窗口高度,默认为0
+    public static double h_x = 0D;
+    //当前指定窗口宽度,默认为0
+    public static double w_x = 0D;
 
     static {
         //配置文件名
@@ -165,18 +152,6 @@ public class ConfigParams {
             sizeauto = config_pathseeting.getBool("javaui.sizeauto", "core", sizeauto);
             h_x = config_pathseeting.getDouble("javaui.h_x", "core", h_x);
             w_x = config_pathseeting.getDouble("javaui.w_x", "core", w_x);
-            if (sizeauto) {//自适应大小默认为分辨率的一般,弹窗为分辨率1/3
-                Toolkit tk = Toolkit.getDefaultToolkit();
-                Dimension screenSize = tk.getScreenSize();
-                h_x = screenSize.getHeight();
-                w_x = screenSize.getWidth();
-                h_bs = (1 + (((h_x / bottom_height) - 1) * 0.5));
-                w_bs = (1 + (((w_x / bottom_width) - 1) * 0.5));
-                if (w_bs < 1 || h_bs < 1) {
-                    LogUtils.err("分辨率过低,标准分辨率:" + ConfigParams.bottom_height + "X" + ConfigParams.bottom_width);
-                    System.exit(-1);
-                }
-            }
             extend = config_pathseeting.getSetting("extend");
         } catch (Exception e) {
             e.printStackTrace();
