@@ -4,13 +4,12 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.web.WebView?>
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="900" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="874" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="cn.bigcore.framework.ui.core.controller.SpeakerController">
-    <TextArea fx:id="text" layoutX="58.0" layoutY="47.0" prefHeight="665.0" prefWidth="581.0"/>
-    <Button fx:id="yuedubutton" layoutX="695.0" layoutY="368.0" mnemonicParsing="false" onMouseClicked="#yuedu"
+    <TextArea fx:id="text" layoutX="21.0" layoutY="18.0" prefHeight="840.0" prefWidth="618.0"/>
+    <Button fx:id="yuedubutton" layoutX="704.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#yuedu"
             text="点击阅读"/>
-    <TextField fx:id="state" layoutX="803.0" layoutY="368.0"/>
-<!--    <WebView  fx:id="web"  layoutX="674.0" layoutY="47.0" prefHeight="288.0" prefWidth="317.0"/>-->
+    <TextField fx:id="state" disable="true" layoutX="819.0" layoutY="438.0" prefHeight="23.0" prefWidth="148.0"/>
+    <!--    <WebView  fx:id="web"  layoutX="674.0" layoutY="47.0" prefHeight="288.0" prefWidth="317.0"/>-->
 </Pane>

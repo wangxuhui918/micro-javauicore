@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Map;
 
@@ -40,6 +41,7 @@ public class FXMLBottomUtils {
                 stage_default.setScene(scene);
                 stage_default.setResizable(false);
                 stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
+//                stage_default.initStyle(StageStyle.UNDECORATED);
                 SizeUtils.initSizeX(parent);
                 stage_default.show();
             } else if (vbox != null) {//在vbox加载页面

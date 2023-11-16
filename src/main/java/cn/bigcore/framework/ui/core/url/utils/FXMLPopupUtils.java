@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Map;
 
@@ -38,6 +39,7 @@ public class FXMLPopupUtils {
             stage_default.setAlwaysOnTop(true);
             stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
             stage_default.setScene(scene_alert);
+
             stage_default.show();
 
             if (loader.getController() instanceof BaseController) {
