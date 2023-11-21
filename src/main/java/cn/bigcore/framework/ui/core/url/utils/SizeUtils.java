@@ -7,10 +7,11 @@ import cn.hutool.crypto.digest.MD5;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -204,6 +205,11 @@ public class SizeUtils {
                 ((TextField) node).setPrefHeight(((TextField) node).getPrefHeight() * h_v_bs);
                 ((TextField) node).setLayoutX(((TextField) node).getLayoutX() * w_v_bs);
                 ((TextField) node).setLayoutY(((TextField) node).getLayoutY() * h_v_bs);
+            } else if (node instanceof Button) {
+                ((Button) node).setPrefWidth(((Button) node).getPrefWidth() * w_v_bs);
+                ((Button) node).setPrefHeight(((Button) node).getPrefHeight() * h_v_bs);
+                ((Button) node).setLayoutX(((Button) node).getLayoutX() * w_v_bs);
+                ((Button) node).setLayoutY(((Button) node).getLayoutY() * h_v_bs);
             } else if (node instanceof Control) {
                 ((Control) node).setMinSize(((Control) node).getPrefWidth() * w_v_bs, ((Control) node).getPrefHeight() * h_v_bs);
                 ((Control) node).setLayoutX(((Control) node).getLayoutX() * w_v_bs);
