@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Map;
 
@@ -31,7 +30,7 @@ public class FXMLPopupUtils {
             stage_default = stage_default != null ? stage_default : new Stage();
             FXMLLoader loader = new FXMLLoader(uiBeanInterface.getFXML());
             Parent parent = loader.load();
-            SizeUtils.initSizeX(parent);
+            SizeUtils.initW_HSize(parent);
             Scene scene_alert = new Scene(parent);
             stage_default.initModality(Modality.APPLICATION_MODAL);
             stage_default.setResizable(false);

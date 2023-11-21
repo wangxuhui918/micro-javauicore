@@ -41,8 +41,7 @@ public class FXMLBottomUtils {
                 stage_default.setResizable(ConfigParams.sizeauto);
                 stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
 //                stage_default.initStyle(StageStyle.UNDECORATED);
-                SizeUtils.initBs();
-                SizeUtils.initSizeX(parent);
+                SizeUtils.initW_HSize(parent);
                 SizeUtils.addListener(stage_default);
                 stage_default.show();
             }
@@ -51,8 +50,7 @@ public class FXMLBottomUtils {
 //                vbox.setPrefWidth(ConfigParams.bottom_width);
                 vbox.getChildren().clear();
                 vbox.getChildren().add(parent);
-                SizeUtils.initBs();
-                SizeUtils.initSizeX(parent);
+                SizeUtils.initW_HSize(parent);
             }
             if (loader.getController() instanceof BaseController) {
                 ((BaseController) loader.getController()).initData(transmit_data);
