@@ -38,19 +38,21 @@ public class FXMLBottomUtils {
                 Scene scene = new Scene(parent);
                 stage_default.setTitle(ConfigParams.copyright);
                 stage_default.setScene(scene);
-                stage_default.setResizable(true);
+                stage_default.setResizable(ConfigParams.sizeauto);
                 stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
 //                stage_default.initStyle(StageStyle.UNDECORATED);
+                SizeUtils.initBs();
                 SizeUtils.initSizeX(parent);
                 SizeUtils.addListener(stage_default);
                 stage_default.show();
             }
-            if (vbox != null) {//在vbox加载页面
+            if (vbox != null) {//已经在stage_default进行了缩放,这里不再进行缩放
 //                vbox.setPrefHeight(ConfigParams.bottom_height);
 //                vbox.setPrefWidth(ConfigParams.bottom_width);
                 vbox.getChildren().clear();
                 vbox.getChildren().add(parent);
-                SizeUtils.initSizeX(vbox);
+                SizeUtils.initBs();
+                SizeUtils.initSizeX(parent);
             }
             if (loader.getController() instanceof BaseController) {
                 ((BaseController) loader.getController()).initData(transmit_data);
