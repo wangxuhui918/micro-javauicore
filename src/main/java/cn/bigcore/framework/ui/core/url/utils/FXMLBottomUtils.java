@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Map;
 
@@ -39,20 +38,19 @@ public class FXMLBottomUtils {
                 Scene scene = new Scene(parent);
                 stage_default.setTitle(ConfigParams.copyright);
                 stage_default.setScene(scene);
-                stage_default.setResizable(false);
+                stage_default.setResizable(true);
                 stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
 //                stage_default.initStyle(StageStyle.UNDECORATED);
                 SizeUtils.initSizeX(parent);
+                SizeUtils.addListener(stage_default);
                 stage_default.show();
-            } else if (vbox != null) {//在vbox加载页面
+            }
+            if (vbox != null) {//在vbox加载页面
 //                vbox.setPrefHeight(ConfigParams.bottom_height);
 //                vbox.setPrefWidth(ConfigParams.bottom_width);
                 vbox.getChildren().clear();
                 vbox.getChildren().add(parent);
                 SizeUtils.initSizeX(vbox);
-            } else {
-                AlertUtils.err("系统异常!");
-
             }
             if (loader.getController() instanceof BaseController) {
                 ((BaseController) loader.getController()).initData(transmit_data);
