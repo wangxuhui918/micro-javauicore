@@ -45,14 +45,11 @@ public class SizeUtils {
     public static HashMap<String, Double> line_w = new HashMap<>();
 
     static {
-
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension screenSize = tk.getScreenSize();
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         Insets screenInsets = tk.getScreenInsets(graphicsDevice.getDefaultConfiguration());
         desktopBounds = new Rectangle(screenInsets.left, screenInsets.top, screenSize.width - screenInsets.left - screenInsets.right, screenSize.height - screenInsets.top - screenInsets.bottom);
-
-        initW_HBS(null, null, true);
     }
 
     /**
@@ -151,7 +148,9 @@ public class SizeUtils {
                 h_v_bs = h_v_bs * line_h.get(line_md5.get(i));
             }
         }
-        node.getProperties().put("md5", line_md5.get(line_md5.size() - 1));
+        if (line_md5.size() > 0) {
+            node.getProperties().put("md5", line_md5.get(line_md5.size() - 1));
+        }
         if (w_v_bs != 1 || h_v_bs != 1) {//如果倍数为1则不进行缩放
             if (node instanceof VBox) {
                 ((VBox) node).setMinSize(((VBox) node).getPrefWidth() * w_v_bs, (((VBox) node).getPrefHeight() * h_v_bs));
