@@ -30,7 +30,6 @@ public class FXMLPopupUtils {
             stage_default = stage_default != null ? stage_default : new Stage();
             FXMLLoader loader = new FXMLLoader(uiBeanInterface.getFXML());
             Parent parent = loader.load();
-            SizeUtils.initW_HSize(parent);
             Scene scene_alert = new Scene(parent);
             stage_default.initModality(Modality.APPLICATION_MODAL);
             stage_default.setResizable(false);
@@ -38,7 +37,7 @@ public class FXMLPopupUtils {
             stage_default.setAlwaysOnTop(true);
             stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
             stage_default.setScene(scene_alert);
-
+            SizeUtils.initW_HSize(parent);
             stage_default.show();
 
             if (loader.getController() instanceof BaseController) {
