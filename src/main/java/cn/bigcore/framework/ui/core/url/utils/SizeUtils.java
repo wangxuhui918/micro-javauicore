@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,30 +96,44 @@ public class SizeUtils {
 
     }
 
+    public static long lastupdatedate = 0;
 
-    public static void addListener(Stage primaryStage) {
+    public static void addListener(Stage stage) {
         if (ConfigParams.allowminwindow) {//允许最小化托盘
             MinWindow minwindows = MinWindow.getInstance();
-            minwindows.listen(primaryStage);
+            minwindows.listen(stage);
         }
         if (ConfigParams.sizeauto) {//自适应大小默认为分辨率的一般,弹窗为分辨率1/3
-            Node node = primaryStage.getScene().getRoot();
+//            Node node = stage.getScene().getRoot();
             //监听窗口高度改变
-            primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
+            stage.heightProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                     initW_HBS(-1D, newValue.doubleValue(), false);
-                    initW_HSize(node);
+                    if (new Date().getTime() - lastupdatedate > 300) {
+//                        lastupdatedate = new Date().getTime();
+                        initW_HSize(stage.getScene().getRoot());
+                    }
+
                 }
             });
             //监听窗口宽度改变
-            primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+            stage.widthProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                     initW_HBS(newValue.doubleValue(), -1D, false);
-                    initW_HSize(node);
+//                    if (new Date().getTime() - lastupdatedate > 300) {
+//                        lastupdatedate = new Date().getTime();
+                    initW_HSize(stage.getScene().getRoot());
+//                    }
                 }
             });
+
+//            EventHandler<Event> mouseEventEventHandler = mouseEvent -> {
+//                System.out.println("SizeUtils.addListener");
+//            };
+//            stage.getScene().addEventHandler(Event.ANY, mouseEventEventHandler);
+////            stage.getWindows(WindowEvent.ANY, mouseEventEventHandler);
         }
     }
 
@@ -205,8 +220,9 @@ public class SizeUtils {
                 ((TextField) node).setLayoutX(((TextField) node).getLayoutX() * w_v_bs);
                 ((TextField) node).setLayoutY(((TextField) node).getLayoutY() * h_v_bs);
             } else if (node instanceof Button) {
-                ((Button) node).setPrefWidth(((Button) node).getPrefWidth() * w_v_bs);
-                ((Button) node).setPrefHeight(((Button) node).getPrefHeight() * h_v_bs);
+                ((Button) node).setMinSize(((Button) node).getPrefWidth() * w_v_bs, ((Button) node).getPrefHeight() * h_v_bs);
+                //                ((Button) node).setPrefWidth(((Button) node).getPrefWidth() * w_v_bs);
+//                ((Button) node).setPrefHeight(((Button) node).getPrefHeight() * h_v_bs);
                 ((Button) node).setLayoutX(((Button) node).getLayoutX() * w_v_bs);
                 ((Button) node).setLayoutY(((Button) node).getLayoutY() * h_v_bs);
             } else if (node instanceof Control) {

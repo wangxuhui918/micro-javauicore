@@ -41,9 +41,7 @@ public class FXMLBottomUtils {
                 stage_default.setResizable(ConfigParams.sizeauto);
                 stage_default.getIcons().add(new Image(ConfigParams.iocn_path));
 //                stage_default.initStyle(StageStyle.UNDECORATED);
-                SizeUtils.initW_HBS(null, null, true);
                 SizeUtils.initW_HSize(parent);
-                SizeUtils.addListener(stage_default);
                 stage_default.show();
             }
             if (vbox != null) {//已经在stage_default进行了缩放,这里不再进行缩放

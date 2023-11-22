@@ -43,9 +43,7 @@ public class FXMLPopupUtils {
             if (loader.getController() instanceof BaseController) {
                 ((BaseController) loader.getController()).initData(transmit_data);
             }
-            if (stage_default != null) {
-                SizeUtils.addListener(stage_default);
-            }
+
             return loader;
         } catch (Exception e) {
             AlertUtils.err("系统异常!", e);
