@@ -17,13 +17,17 @@ import java.util.Map;
 public class TableDataUtils {
 
     public static void addEntityData(TableView tableView, List<Entity> data, boolean addColumn, boolean cleanOldData, boolean zeroDataToClear) {
+        addEntityData(tableView, data, addColumn, cleanOldData, zeroDataToClear, null);
+    }
+
+    public static void addEntityData(TableView tableView, List<Entity> data, boolean addColumn, boolean cleanOldData, boolean zeroDataToClear, HashMap<String, HashMap<String, String>> convertColumData) {
         List<Map<String, Object>> data1 = new ArrayList<>();
         if (data != null && data.size() > 0) {
             for (int i = 0; i < data.size(); i++) {
                 data1.add(data.get(i));
             }
         }
-        addMapData(tableView, data1, addColumn, cleanOldData, zeroDataToClear);
+        addMapData(tableView, data1, addColumn, cleanOldData, zeroDataToClear, convertColumData);
     }
 
     public static void clearItems(TableView tableView) {
@@ -31,6 +35,10 @@ public class TableDataUtils {
     }
 
     public static void addMapData(TableView tableView, List<Map<String, Object>> data, boolean addColumn, boolean cleanOldData, boolean zeroDataToClear) {
+        addMapData(tableView, data, addColumn, cleanOldData, zeroDataToClear, null);
+    }
+
+    public static void addMapData(TableView tableView, List<Map<String, Object>> data, boolean addColumn, boolean cleanOldData, boolean zeroDataToClear, HashMap<String, HashMap<String, String>> convertColumData) {
         if (data != null && data.size() > 0) {
             List<String> columnsName = new ArrayList<>();
             //清空老旧数据
@@ -55,6 +63,17 @@ public class TableDataUtils {
                 TableColumn<Map, String> columeName = new TableColumn<>(o);
                 columeName.setCellValueFactory(new MapValueFactory<>(o));
                 tableView.getColumns().add(columeName);
+            }
+            //进行字典转换
+            if (convertColumData != null && convertColumData.size() > 0) {
+                if (data != null && data.size() > 0) {
+                    for (Map<String, Object> o : data) {
+                        for (String o1_1 : convertColumData.keySet()) {
+                            Object val = convertColumData.get(o1_1).get(o.get(o1_1));
+                            o.put(o1_1, val == null ? o.get(o1_1) : val);
+                        }
+                    }
+                }
             }
             //添加数据,如果使用新列,直接使用新数据加入,如果使用老列,则筛选加入
             if (addColumn) {

@@ -11,6 +11,7 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PagingSelectUtils {
@@ -24,6 +25,13 @@ public class PagingSelectUtils {
      * 分页绑定
      */
     public static void bind(String tableName, TableView usertable, Pagination pagination, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas) {
+        bind(tableName, usertable, pagination, listParamInfo, listParamInfoas, null);
+    }
+
+    /**
+     * 分页绑定
+     */
+    public static void bind(String tableName, TableView usertable, Pagination pagination, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas, HashMap<String, HashMap<String, String>> convertColumData) {
         boolean init = false;
         try {
             init = (Boolean) pagination.getProperties().get("init");
@@ -32,7 +40,7 @@ public class PagingSelectUtils {
         if (!init) {
             pagination.setMaxPageIndicatorCount(ling_page_count);
             pagination.setPageFactory((pageIndexx) -> {
-                select(tableName, usertable, pagination, pageIndexx, listParamInfo, listParamInfoas);
+                select(tableName, usertable, pagination, pageIndexx, listParamInfo, listParamInfoas, convertColumData);
                 Label label1 = new Label();
                 Label label2 = new Label();
                 return new VBox(label1, label2);
@@ -52,7 +60,36 @@ public class PagingSelectUtils {
      * @param listParamInfoas
      */
     public static void select(String tableName, TableView usertable, Pagination pagination, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas) {
-        select(tableName, usertable, pagination, 0, listParamInfo, listParamInfoas);
+        select(tableName, usertable, pagination, listParamInfo, listParamInfoas, null);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param pageIndex
+     * @param tableName
+     * @param usertable
+     * @param pagination
+     * @param listParamInfo
+     * @param listParamInfoas
+     * @param convertColumData
+     */
+    public static void select(String tableName, TableView usertable, Pagination pagination, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas, HashMap<String, HashMap<String, String>> convertColumData) {
+        select(tableName, usertable, pagination, 0, listParamInfo, listParamInfoas, convertColumData);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param tableName
+     * @param usertable
+     * @param pagination
+     * @param listParamInfo
+     * @param listParamInfoas
+     * @param convertColumData
+     */
+    public static void select(String tableName, TableView usertable, Pagination pagination, int pageIndex, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas) {
+        select(tableName, usertable, pagination, pageIndex, listParamInfo, listParamInfoas, null);
     }
 
     /**
@@ -64,7 +101,7 @@ public class PagingSelectUtils {
      * @param listParamInfo
      * @param listParamInfoas
      */
-    public static void select(String tableName, TableView usertable, Pagination pagination, int pageIndex, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas) {
+    public static void select(String tableName, TableView usertable, Pagination pagination, int pageIndex, List<ParamInfo> listParamInfo, List<ParamInfo> listParamInfoas, HashMap<String, HashMap<String, String>> convertColumData) {
         //
         String sql_where = SqlUtils.conditionalSQL(listParamInfo);
         String sql_as = SqlUtils.conditionalSQL(listParamInfoas);
@@ -83,6 +120,6 @@ public class PagingSelectUtils {
         pagination.setPageCount(th % pagesize > 0 ? th / pagesize + 1 : th / pagesize);
         //
         List data_list = DataSourceUtils.findTableData(sql);
-        TableDataUtils.addMapData(usertable, data_list, false, true, true);
+        TableDataUtils.addMapData(usertable, data_list, false, true, true, convertColumData);
     }
 }
