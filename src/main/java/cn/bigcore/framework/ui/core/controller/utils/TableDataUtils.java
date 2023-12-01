@@ -55,15 +55,18 @@ public class TableDataUtils {
                         columnsName.add(column.getText());
                     }
                 }
-                tableView.getColumns().clear();
             }
             //添加列
+//            if (addColumn) {
+            tableView.getColumns().clear();
             for (int i = 0; i < columnsName.size(); i++) {
                 String o = columnsName.get(i);
                 TableColumn<Map, String> columeName = new TableColumn<>(o);
                 columeName.setCellValueFactory(new MapValueFactory<>(o));
                 tableView.getColumns().add(columeName);
             }
+//            }
+
             //进行字典转换
             if (convertColumData != null && convertColumData.size() > 0) {
                 if (data != null && data.size() > 0) {
